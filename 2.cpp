@@ -1,28 +1,55 @@
-#include<iostream>
-#include<cmath>
-bool isprime(int n){
-	if(n<=1){
-		return false;
-	}
-	if (n<=3){
-		return true;
-	}
-	if(n%2==0||n%3==0){
-	return false;
-	}
-	for(int i=5;i*i<=n;i+=6){
-		if(n%i==0||n%(i+2)==0){
-			return false;
-		}
-	}
-	return true;
+#include <iostream>
+#include <cmath> 
+using namespace std;
+class Shape {
+protected:
+    double height;
+    double width;
+public:
+    Shape(double h = 0, double w = 0) {
+        height = h;
+        width = w;
+    }
+    virtual double area() = 0;
+    virtual double perimeter() = 0;
+    void setHeight(double h) {
+        height = h;
+    }
+    void setWidth(double w) {
+        width = w;
+    }
+};
+class Rectangle : public Shape {
+public:
+    Rectangle(double h = 0, double w = 0) : Shape(h, w) {}
+
+    double area() {
+        return height * width;
+    }
+    double perimeter() {
+        return 2 * (height + width);
+    }
+};
+class Triangle : public Shape {
+public:
+    Triangle(double h = 0, double w = 0) : Shape(h, w) {}
+    double area() {
+        return 0.5 * height * width;
+    }
+    double perimeter() {
+        return height + width + sqrt(height * height + width * width);
+    }
+};
+int main() {
+    Rectangle rect(5, 10);
+    Triangle tri(6, 8);
+    cout << "Rectangle:" << endl;
+    cout << "Area: " << rect.area() << endl;
+    cout << "Perimeter: " << rect.perimeter() << endl;
+    cout << endl;
+    cout << "Triangle:" << endl;
+    cout << "Area: " << tri.area() << endl;
+    cout << "Perimeter: " << tri.perimeter() << endl;
+    return 0;
 }
-int main(){
-	int number=29;
-	if(isprime(number)){
-		std::cout<<number<<"is a prime number."<<std::endl;
-	}else{
-		std::cout<<number<<"is not a prime number."<<std::endl;
-	}
-	return 0;
-}
+
