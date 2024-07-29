@@ -1,33 +1,26 @@
 #include <iostream>
-#include <string>
-#include<cctype>
-bool isPalindrome(const std::string &str) {
-    std::string cleanedStr;
-    for (std::string::size_type i = 0; i < str.length(); ++i) {
-        char ch = str[i];
-        if (std::isalnum(ch)) {
-            cleanedStr += std::tolower(ch);
-        }
+class Person {
+public:
+    virtual void greet() const = 0; 
+};
+class Student : public Person {
+public:
+    void greet() const override {
+        std::cout << "Hello, I am a student." << std::endl;
     }
-    std::string::size_type left = 0;
-    std::string::size_type right = cleanedStr.length() - 1;
-
-    while (left < right) {
-        if (cleanedStr[left] != cleanedStr[right]) {
-            return false;
-        }
-        ++left;
-        --right;
+};
+class Teacher : public Person {
+public:
+    void greet() const override {
+        std::cout << "Hello, I am a teacher." << std::endl;
     }
-    return true;
-}
+};
 int main() {
-    std::string text = "A man, a plan, a canal, Panama"; 
-    if (isPalindrome(text)) {
-        std::cout << "\"" << text << "\" is a palindrome." << std::endl;
-    } else {
-        std::cout << "\"" << text << "\" is not a palindrome." << std::endl;
-    }
+    Person* student = new Student();
+    Person* teacher = new Teacher();
+    student->greet();
+    teacher->greet();
+    delete student;
+    delete teacher;
     return 0;
 }
-

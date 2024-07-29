@@ -1,80 +1,40 @@
 #include <iostream>
-#include <string>
-using namespace std;
-class Person {
-protected:
-    string name;
-    int age;
-    char gender;
+#include <cmath> 
+class Shape {
 public:
-    Person(string n = "", int a = 0, char g = ' ') {
-        name = n;
-        age = a;
-        gender = g;
-    }
-    void display() {
-        cout << "Name: " << name << endl;
-        cout << "Age: " << age << endl;
-        cout << "Gender: " << gender << endl;
-    }
-    void setName(string n) {
-        name = n;
-    }
-    void setAge(int a) {
-        age = a;
-    }
-    void setGender(char g) {
-        gender = g;
+    virtual double area() const = 0; 
+    virtual ~Shape() {}
+};
+class Rectangle : public Shape {
+private:
+    double width;
+    double height;
+public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+    double area() const override {
+        return width * height;
     }
 };
-class Student : public Person {
+class Circle : public Shape {
 private:
-    int rollNumber;
-    string className;
+    double radius;
 public:
-    Student(string n = "", int a = 0, char g = ' ', int rn = 0, string cn = "") : Person(n, a, g) {
-        rollNumber = rn;
-        className = cn;
-    }
-    void display() {
-        Person::display();
-        cout << "Roll Number: " << rollNumber << endl;
-        cout << "Class: " << className << endl;
-    }
-    void setRollNumber(int rn) {
-        rollNumber = rn;
-    }
-    void setClassName(string cn) {
-        className = cn;
-    }
-};
-class Teacher : public Person {
-private:
-    string subject;
-    double salary;
-public:
-    Teacher(string n = "", int a = 0, char g = ' ', string s = "", double sal = 0.0) : Person(n, a, g) {
-        subject = s;
-        salary = sal;
-    }
-    void display() {
-        Person::display();
-        cout << "Subject: " << subject << endl;
-        cout << "Salary: " << salary << endl;
-    }
-    void setSubject(string s) {
-        subject = s;
-    }
-    void setSalary(double sal) {
-        salary = sal;
+    Circle(double r) : radius(r) {}
+    double area() const override {
+        return M_PI * radius * radius;
     }
 };
 int main() {
-    Student s("John Doe", 20, 'M', 123, "XII");
-    Teacher t("Jane Doe", 30, 'F', "Math", 50000.0);
-    cout << "Student Information:" << endl;
-    s.display();
-    cout << "\nTeacher Information:" << endl;
-    t.display();
+    Rectangle rect(5.0, 3.0);
+    std::cout << "Area of Rectangle: " << rect.area() << std::endl;
+    Circle circ(2.0);
+    std::cout << "Area of Circle: " << circ.area() << std::endl;
+    Shape* shapes[2];
+    shapes[0] = &rect;
+    shapes[1] = &circ;
+    std::cout << "Area of shapes[0]: " << shapes[0]->area() << std::endl;
+    std::cout << "Area of shapes[1]: " << shapes[1]->area() << std::endl;
+
     return 0;
 }
+

@@ -1,15 +1,26 @@
 #include <iostream>
-int add(int a, int b) {
-    return a + b;
-}
-double add(double a, double b) {
-    return a + b;
-}
+class Person {
+public:
+    virtual void work() const = 0;
+};
+class Employee : public Person {
+public:
+    void work() const override {
+        std::cout << "Employee is working on tasks." << std::endl;
+    }
+};
+class Manager : public Person {
+public:
+    void work() const override {
+        std::cout << "Manager is overseeing the team." << std::endl;
+    }
+};
 int main() {
-    int intResult = add(5, 7);
-    std::cout << "Sum of integers: " << intResult << std::endl;
-    double doubleResult = add(3.5, 2.5);
-    std::cout << "Sum of floating-point numbers: " << doubleResult << std::endl;
+    Person* employee = new Employee();
+    Person* manager = new Manager();
+    employee->work();
+    manager->work();
+    delete employee;
+    delete manager;
     return 0;
 }
-

@@ -1,11 +1,26 @@
 #include <iostream>
-double celsiusToFahrenheit(double celsius) {
-    return (celsius * 9.0 / 5.0) + 32.0;
-}
+class Animal {
+public:
+    virtual void eat() const = 0; 
+};
+class Herbivore : public Animal {
+public:
+    void eat() const override {
+        std::cout << "Herbivore is eating plants." << std::endl;
+    }
+};
+class Carnivore : public Animal {
+public:
+    void eat() const override {
+        std::cout << "Carnivore is eating meat." << std::endl;
+    }
+};
 int main() {
-    double celsius = 25.0;
-    double fahrenheit = celsiusToFahrenheit(celsius);
-    std::cout << celsius << " degrees Celsius is equal to " << fahrenheit << " degrees Fahrenheit." << std::endl;
+    Animal* herbivore = new Herbivore();
+    Animal* carnivore = new Carnivore();
+    herbivore->eat();
+    carnivore->eat();
+    delete herbivore;
+    delete carnivore;
     return 0;
 }
-
