@@ -1,19 +1,26 @@
-#include<iostream>
-#include<string>
-class person{
-	private:
-		std::string name;
-		int age;
-		public:
-			person(const std::string&n,int a):name(n),age(a){}
-			friend std::ostream&operator<<(std::ostream&out,const person&p);
-						};
-						std::ostream&operator<<(std::ostream&out,const person&p){
-							out<<"name:"<<p.name<<",age:"<<p.age;
-							return out;
-						}
-						int main(){
-							person person("nithesh",20);
-							std::cout<<person<<std::endl;
-							return 0;
-						}
+#include <iostream>
+#include <stdexcept>
+#include <string>
+class CustomException : public std::runtime_error {
+public:
+    CustomException(const std::string& message)
+        : std::runtime_error(message) {}
+};
+void riskyFunction() {
+    bool errorCondition = true;
+    if (errorCondition) {
+        throw CustomException("A custom error occurred in riskyFunction");
+    }
+    std::cout << "Risky function executed successfully\n";
+}
+int main() {
+    try {
+        riskyFunction();
+    } catch (const CustomException& e) {
+        std::cout << "Caught a custom exception: " << e.what() << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "Caught a standard exception: " << e.what() << std::endl;
+    }
+    return 0;
+}
+

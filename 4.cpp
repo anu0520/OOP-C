@@ -1,33 +1,29 @@
 #include <iostream>
-#include <string>
-class Person {
-private:
-    std::string name;
-    int age;
-public:
-    Person(std::string name, int age) : name(name), age(age) {}
-    bool operator==(const Person& other) const {
-        return (name == other.name && age == other.age);
+#include <stdexcept>
+#include <exception>
+void testFunction(int errorType) {
+    if (errorType == 1) {
+        throw std::runtime_error("Runtime error occurred");
+    } else if (errorType == 2) {
+        throw std::logic_error("Logic error occurred");
+    } else if (errorType == 3) {
+        throw std::out_of_range("Out of range error occurred");
+    } else {
+        throw std::exception();
     }
-    void display() const {
-        std::cout << "Name: " << name << ", Age: " << age << std::endl;
-    }
-};
+}
 int main() {
-    Person person1("anu", 30);
-    Person person2("anu", 30);
-    Person person3("anu", 25);
-    if (person1 == person2) {
-        std::cout << "person1 is equal to person2" << std::endl;
-    } else {
-        std::cout << "person1 is not equal to person2" << std::endl;
-    }
-    if (person1 == person3) {
-        std::cout << "person1 is equal to person3" << std::endl;
-    } else {
-        std::cout << "person1 is not equal to person3" << std::endl;
+    try { 
+        testFunction(2);
+    } catch (const std::runtime_error& e) {
+        std::cout << "Caught a runtime error: " << e.what() << std::endl;
+    } catch (const std::logic_error& e) {
+        std::cout << "Caught a logic error: " << e.what() << std::endl;
+    } catch (const std::out_of_range& e) {
+        std::cout << "Caught an out of range error: " << e.what() << std::endl;
+    } catch (const std::exception& e) {
+       std::cout << "Caught a generic exception: " << e.what() << std::endl;
     }
     return 0;
-
 }
 
