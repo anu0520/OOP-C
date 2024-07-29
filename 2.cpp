@@ -1,28 +1,28 @@
-#include <iostream>
-#include <stdexcept>
-void innerFunction() {
-    try {
-        std::cout << "Inner try block\n";
-        throw std::runtime_error("Inner function error");
-    } catch (const std::runtime_error& e) {
-        std::cout << "Caught in inner catch block: " << e.what() << std::endl;
-    }
+#include<iostream>
+#include<cmath>
+bool isprime(int n){
+	if(n<=1){
+		return false;
+	}
+	if (n<=3){
+		return true;
+	}
+	if(n%2==0||n%3==0){
+	return false;
+	}
+	for(int i=5;i*i<=n;i+=6){
+		if(n%i==0||n%(i+2)==0){
+			return false;
+		}
+	}
+	return true;
 }
-void outerFunction() {
-    try {
-        std::cout << "Outer try block\n";
-        innerFunction();
-    } catch (const std::runtime_error& e) {
-        std::cout << "Caught in outer catch block: " << e.what() << std::endl;
-    }
+int main(){
+	int number=29;
+	if(isprime(number)){
+		std::cout<<number<<"is a prime number."<<std::endl;
+	}else{
+		std::cout<<number<<"is not a prime number."<<std::endl;
+	}
+	return 0;
 }
-int main() {
-    try {
-        std::cout << "Main try block\n";
-        outerFunction();
-    } catch (const std::exception& e) {
-        std::cout << "Caught in main catch block: " << e.what() << std::endl;
-    }
-    return 0;
-}
-

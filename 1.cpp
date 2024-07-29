@@ -1,28 +1,24 @@
-#include <iostream>
-#include <functional>
-#include <stdexcept> 
-class Finally {
-public:
-    Finally(std::function<void()> func) : func_(func) {}
-    ~Finally() { func_(); }
-private:
-    std::function<void()> func_;
-};
-
-void riskyFunction() {
-    Finally finalAction([]() {
-        std::cout << "This will always be executed." << std::endl;
-    });
-
-    std::cout << "Performing some risky operations..." << std::endl;
-    throw std::runtime_error("An error occurred");
+#include<iostream>
+#include<stdexcept>
+unsigned long long factorial_recursive(int n){
+	if(n<0){
+		throw std::invalid_argument("factorial is not defined for negative numbers");
+	}else if(n==0||n==1){
+		return 1;
+	}else{
+		return n*factorial_recursive(n-1);
+	}
 }
-int main() {
-    try {
-        riskyFunction();
-    } catch (const std::exception& e) {
-        std::cout << "Caught an exception: " << e.what() << std::endl;
-    }
-    return 0;
+int main(){
+	int number=5;
+	try{
+		std::cout<<"factorial of"<<number<<"is"<<factorial_recursive(number)<<std::endl;
+	}catch(const std::invalid_argument&e){
+		std::cerr<<e.what()<<std::endl;
+	}
+	return 0;
 }
+
+
+
 

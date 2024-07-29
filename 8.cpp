@@ -1,23 +1,20 @@
 #include <iostream>
-class Complex {
-private:
-    double real;
-    double imag;
-public:
-    Complex(double r = 0.0, double i = 0.0) : real(r), imag(i) {}
-    Complex operator-(const Complex& other) const {
-        return Complex(real - other.real, imag - other.imag);
+#include <cmath>    
+#include <stdexcept> 
+double calculateCircleArea(double radius) {
+    if (radius < 0) {
+        throw std::invalid_argument("Radius cannot be negative");
     }
-    void display() const {
-        std::cout << real << " + " << imag << "i" << std::endl;
-    }
-};
+    return M_PI * std::pow(radius, 2);
+}
 int main() {
-    Complex c1(5.0, 3.0);
-    Complex c2(2.0, 1.0);
-    Complex result = c1 - c2;
-    std::cout << "Result of subtraction: ";
-    result.display();
+    double radius = 5.0; 
+    try {
+        double area = calculateCircleArea(radius);
+        std::cout << "The area of the circle with radius " << radius << " is " << area << std::endl;
+    } catch (const std::invalid_argument &e) { 
+        std::cerr << e.what() << std::endl; 
+    }
     return 0;
 }
 

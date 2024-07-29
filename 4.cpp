@@ -1,29 +1,19 @@
 #include <iostream>
-#include <stdexcept>
-#include <exception>
-void testFunction(int errorType) {
-    if (errorType == 1) {
-        throw std::runtime_error("Runtime error occurred");
-    } else if (errorType == 2) {
-        throw std::logic_error("Logic error occurred");
-    } else if (errorType == 3) {
-        throw std::out_of_range("Out of range error occurred");
-    } else {
-        throw std::exception();
+#include <string>
+#include <algorithm> 
+std::string reverseString(const std::string &str) {
+    int n = str.length();
+    std::string reversedStr = str;
+    for (int i = 0; i < n / 2; ++i) {
+        std::swap(reversedStr[i], reversedStr[n - i - 1]);
     }
+    return reversedStr;
 }
 int main() {
-    try { 
-        testFunction(2);
-    } catch (const std::runtime_error& e) {
-        std::cout << "Caught a runtime error: " << e.what() << std::endl;
-    } catch (const std::logic_error& e) {
-        std::cout << "Caught a logic error: " << e.what() << std::endl;
-    } catch (const std::out_of_range& e) {
-        std::cout << "Caught an out of range error: " << e.what() << std::endl;
-    } catch (const std::exception& e) {
-       std::cout << "Caught a generic exception: " << e.what() << std::endl;
-    }
+    std::string original = "hello"; 
+    std::string reversed = reverseString(original);
+    std::cout << "Original string: " << original << std::endl;
+    std::cout << "Reversed string: " << reversed << std::endl;
     return 0;
 }
 

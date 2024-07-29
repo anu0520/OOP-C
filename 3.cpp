@@ -1,26 +1,16 @@
-#include <iostream>
-#include <stdexcept>
-#include <string>
-class CustomException : public std::runtime_error {
-public:
-    CustomException(const std::string& message)
-        : std::runtime_error(message) {}
-};
-void riskyFunction() {
-    bool errorCondition = true;
-    if (errorCondition) {
-        throw CustomException("A custom error occurred in riskyFunction");
-    }
-    std::cout << "Risky function executed successfully\n";
+#include<iostream>
+int gcd(int a,int b){
+	while(b!=0){
+		int temp=b;
+		b=a%b;
+		a=temp;
+	}
+	return a;
 }
-int main() {
-    try {
-        riskyFunction();
-    } catch (const CustomException& e) {
-        std::cout << "Caught a custom exception: " << e.what() << std::endl;
-    } catch (const std::exception& e) {
-        std::cout << "Caught a standard exception: " << e.what() << std::endl;
-    }
-    return 0;
+int main(){
+	int num1=56;
+	int num2=98;
+	std::cout<<"gcd of"<<num1<<"and"<<num2<<"is"<<gcd(num1,num2)<<std::endl;
+return 0;
 }
 
