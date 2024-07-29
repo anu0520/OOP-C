@@ -1,33 +1,25 @@
 #include <iostream>
-using namespace std;
-class employee {
-    char name[30];
-    float age;
+#include <string>
+class Manager {
+private:
+    std::string name;
+    int age;
 public:
-    void getdata(void);
-    void putdata(void);
-};
-void employee::getdata(void) {
-    cout << "Enter name: ";
-    cin >> name;
-    cout << "Enter age: ";
-    cin >> age;
-}
-void employee::putdata(void) {
-    cout << "Name: " << name << "\n";
-    cout << "Age:  " << age << "\n";
-}
-const int size = 3;
-int main() {
-    employee manager[size];
-    for (int i = 0; i < size; i++) {
-        cout << "\nDetails of manager " << i + 1 << "\n";
-        manager[i].getdata();
+    Manager(const std::string& name, int age) : name(name), age(age) {}
+    void display() const {
+        std::cout << "Name: " << name << ", Age: " << age << std::endl;
     }
-    cout << "\n";
-    for (int i = 0; i < size; i++) {
-        cout << "\nManager " << i + 1 << "\n";
-        manager[i].putdata();
+};
+int main() {
+    const int numManagers = 3; 
+    Manager managers[numManagers] = {
+        Manager("Alice", 34),
+        Manager("Bob", 45),
+        Manager("Charlie", 29)
+    };
+    std::cout << "Manager List:" << std::endl;
+    for (int i = 0; i < numManagers; ++i) {
+        managers[i].display();
     }
     return 0;
 }

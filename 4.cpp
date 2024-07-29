@@ -1,34 +1,22 @@
 #include <iostream>
-using namespace std;
-class abc; 
-class xyz {
-    int x;
+class Number {
+private:
+    int value;
 public:
-    void setvalue(int i) {
-        x = i;
+     Number(int v) : value(v) {}
+    friend int findMaximum(const Number& num1, const Number& num2);
+    int getValue() const {
+        return value;
     }
-    friend void max(xyz, abc);
 };
-class abc {
-    int a;
-public:
-    void setvalue(int i) {
-        a = i;
-    }
-    friend void max(xyz, abc);
-};
-void max(xyz m, abc n) {
-    if (m.x >= n.a)
-        cout << m.x;
-    else
-        cout << n.a;
+int findMaximum(const Number& num1, const Number& num2) {
+    return (num1.value > num2.value) ? num1.value : num2.value;
 }
 int main() {
-    abc a;
-    a.setvalue(10);
-    xyz x;
-    x.setvalue(20);
-    max(x, a);
+    Number num1(10); 
+    Number num2(20); 
+    int max = findMaximum(num1, num2);
+    std::cout << "The maximum value is: " << max << std::endl;
     return 0;
 }
 

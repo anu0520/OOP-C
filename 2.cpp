@@ -1,78 +1,52 @@
 #include <iostream>
-using namespace std;
-const int m = 50;
-class items {
-    int itemcode[m];
-    float itemprice[m];
-    int count;
+#include <map>
+#include <iomanip> 
+class ShoppingList {
+private:
+    std::map<int, double> items; 
 public:
-    void cnt(void) { count = 0; }
-    void getitem(void);
-    void displaysum(void);
-    void remove(void);
-    void displayitems(void);
-};
-void items::getitem(void) {
-    cout << "Enter item code: ";
-    cin >> itemcode[count];
-    cout << "Enter item cost: ";
-    cin >> itemprice[count];
-    count++;
-}
-void items::displaysum(void) {
-    float sum = 0;
-    for (int i = 0; i < count; i++)
-        sum = sum + itemprice[i];
-    cout << "\nTotal value: " << sum << "\n";
-}
-void items::remove(void) {
-    int a;
-    cout << "Enter item code to remove: ";
-    cin >> a;
-    for (int i = 0; i < count; i++)
-        if (itemcode[i] == a)
-            itemprice[i] = 0;
-}
-void items::displayitems(void) {
-    cout << "\nCode    Price\n";
-    for (int i = 0; i < count; i++) {
-        cout << itemcode[i] << "   " << itemprice[i] << "\n";
+    void addItem(int code, double price) {
+        items[code] = price;
+        std::cout << "Item added: Code " << code << ", Price $" << price << std::endl;
     }
-}
-int main() {
-    items order;
-    order.cnt();
-    int x;
-    do {
-        cout << "\nYou can do the following;\n"
-             << "Enter appropriate number\n";
-        cout << "\n1: Add an item";
-        cout << "\n2: Display total value";
-        cout << "\n3: Delete an item";
-        cout << "\n4: Display all items";
-        cout << "\n5: Quit";
-        cout << "\n\nWhat is your option? ";
-        cin >> x;
-        switch (x) {
-            case 1:
-                order.getitem();
-                break;
-            case 2:
-                order.displaysum();
-                break;
-            case 3:
-                order.remove();
-                break;
-            case 4:
-                order.displayitems();
-                break;
-            case 5:
-                cout << "Quitting program.\n";
-                break;
-            default:
-                cout << "Error in input\n";
+    void deleteItem(int code) {
+        std::map<int, double>::iterator it = items.find(code);
+        if (it != items.end()) {
+            items.erase(it);
+            std::cout << "Item with Code " << code << " removed." << std::endl;
+        } else {
+            std::cout << "Item with Code " << code << " not found." << std::endl;
         }
-    } while (x != 5);
+    }
+    void printTotal() const {
+        double total = 0.0;
+        for (std::map<int, double>::const_iterator it = items.begin(); it != items.end(); ++it) {
+            total += it->second; 
+        }
+        std::cout << "Total value of the order: $" << std::fixed << std::setprecision(2) << total << std::endl;
+    }
+    void printList() const {
+        if (items.empty()) {
+            std::cout << "The shopping list is empty." << std::endl;
+            return;
+        }
+        std::cout << "Shopping List:" << std::endl;
+        for (std::map<int, double>::const_iterator it = items.begin(); it != items.end(); ++it) {
+            std::cout << "Code: " << it->first << ", Price: $" << it->second << std::endl;
+        }
+    }
+};
+
+int main() {
+    ShoppingList list;
+    list.addItem(101, 29.99);
+    list.addItem(102, 15.50);
+    list.addItem(103, 45.00);
+    list.printList();
+    list.printTotal();
+    list.deleteItem(102);
+    list.printList();
+    list.printTotal();
     return 0;
 }
 

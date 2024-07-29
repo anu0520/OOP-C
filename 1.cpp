@@ -1,35 +1,25 @@
-#include<iostream>
-using namespace std;
-class test
-{
-	int code;
-	static int count;
-	public:
-		void setcode(void)
-		{
-			code=++count;
-		}
-		void showcode(void)
-		{
-			cout << "object number: " << code << "\n";
-		}
-		static void showcount(void)
-{
-	cout<<"count:"<<count<<"\n";
-}
+#include <iostream>
+class ObjectCounter {
+private:
+    static int objectCount;
+public:
+    ObjectCounter() {
+        ++objectCount;
+    }
+    ~ObjectCounter() {
+        --objectCount;
+    }
+    static void showCount() {
+        std::cout << "Number of objects created: " << objectCount << std::endl;
+    }
 };
-int test::count=0;
-int main()
-{
-	test t1,t2;
-	t1.setcode();
-	t2.setcode();
-	test::showcount();
-	test t3;
-	t3.setcode();
-	test::showcount();
-	t1.showcode();
-	t2.showcode();
-	t3.showcode();
-	return 0;
+int ObjectCounter::objectCount = 0;
+int main() {
+    ObjectCounter::showCount(); 
+    ObjectCounter obj1; 
+    ObjectCounter obj2; 
+    ObjectCounter obj3; 
+    ObjectCounter::showCount(); 
+    return 0;
 }
+

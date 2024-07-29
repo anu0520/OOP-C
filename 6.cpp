@@ -1,36 +1,29 @@
 #include <iostream>
-using namespace std;
-class complex {
-    float x;
-    float y; 
+class Complex;
+Complex add(const Complex& c1, const Complex& c2);
+class Complex {
+private:
+    double real;
+    double imag;
 public:
-    void input(float real, float img) {
-        x = real;
-        y = img;
+    Complex(double r = 0.0, double i = 0.0) : real(r), imag(i) {}
+    friend Complex add(const Complex& c1, const Complex& c2);
+    void display() const {
+        std::cout << "Complex number: " << real << " + " << imag << "i" << std::endl;
     }
-    friend complex sum(complex, complex);
-    void show();
 };
-complex sum(complex c1, complex c2) {
-    complex c3;
-    c3.x = c1.x + c2.x;
-    c3.y = c1.y + c2.y;
-    return c3;
-}
-void complex::show() {
-    cout << x << "+j" << y << "\n";
+Complex add(const Complex& c1, const Complex& c2) {
+    return Complex(c1.real + c2.real, c1.imag + c2.imag);
 }
 int main() {
-    complex a, b, c;
-    a.input(3.1, 5.65);
-    b.input(2.75, 1.2);
-    c = sum(a, b);
-    cout << "a = ";
-    a.show();
-    cout << "b = ";
-    b.show();
-    cout << "c = ";
-    c.show();
+    Complex c1(3.5, 2.5);
+    Complex c2(1.5, 4.5);
+    std::cout << "Original complex numbers:" << std::endl;
+    c1.display();
+    c2.display();
+    Complex sum = add(c1, c2);
+    std::cout << "Sum of the complex numbers:" << std::endl;
+    sum.display();
     return 0;
 }
 
