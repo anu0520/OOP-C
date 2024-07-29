@@ -1,57 +1,37 @@
 #include <iostream>
 using namespace std;
-class alpha
-{
-    int x;
-public:
-    alpha(int i)
-    {
-        x = i;
-        cout << "alpha initialized\n";
+void printArray(const int arr[], int size) {
+    cout << "Integer array: ";
+    for (int i = 0; i < size; ++i) {
+        cout << arr[i] << " ";
     }
-    void show_x(void)
-    {
-        cout << "x = " << x << "\n";
+    cout << endl;
+}
+void printArray(const double arr[], int size) {
+    cout << "Double array: ";
+    for (int i = 0; i < size; ++i) {
+        cout << arr[i] << " ";
     }
-};
-class beta
-{
-    float y;
-public:
-    beta(float j)
-    {
-        y = j;
-        cout << "beta initialized\n";
+    cout << endl;
+}
+void printArray(const char arr[], int size) {
+    cout << "Character array: ";
+    for (int i = 0; i < size; ++i) {
+        cout << arr[i] << " ";
     }
-    void show_y(void)
-    {
-        cout << "y = " << y << "\n";
-    }
-};
+    cout << endl;
+}
+int main() {
+    int intArray[] = {1, 2, 3, 4, 5};
+    int intSize = sizeof(intArray) / sizeof(intArray[0]);
+    printArray(intArray, intSize);
+    double doubleArray[] = {1.1, 2.2, 3.3, 4.4, 5.5};
+    int doubleSize = sizeof(doubleArray) / sizeof(doubleArray[0]);
+    printArray(doubleArray, doubleSize);
+    char charArray[] = {'H', 'e', 'l', 'l', 'o'};
+    int charSize = sizeof(charArray) / sizeof(charArray[0]);
+    printArray(charArray, charSize);
 
-class gamma : public beta, public alpha
-{
-    int m, n;
-public:
-    gamma(int a, float b, int c, int d) :
-        alpha(a), beta(b)
-    {
-        m = c;
-        n = d;
-        cout << "gamma initialized\n";
-    }
-    void show_mn(void)
-    {
-        cout << "m = " << m << "\n";
-        cout << "n = " << n << "\n";
-    }
-};
-int main()
-{
-    gamma g(5, 10.75, 20, 30);
-    g.show_x();
-    g.show_y();
-    g.show_mn();
     return 0;
 }
 

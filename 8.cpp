@@ -1,50 +1,23 @@
 #include <iostream>
-#include <cstring> 
-using namespace std;
-class MyString { 
-    char* name;
-    int length;
+class Complex {
+private:
+    double real;
+    double imag;
 public:
-    MyString() {
-        length = 0;
-        name = new char[length + 1];
-        name[0] = '\0'; 
-    }
-    MyString(const char* s) {
-        length = strlen(s);
-        name = new char[length + 1];
-        strcpy(name, s);
-    }
-    MyString(const MyString& other) { 
-        length = other.length;
-        name = new char[length + 1];
-        strcpy(name, other.name);
-    }
-    ~MyString() {
-        delete[] name;
+    Complex(double r = 0.0, double i = 0.0) : real(r), imag(i) {}
+    Complex operator-(const Complex& other) const {
+        return Complex(real - other.real, imag - other.imag);
     }
     void display() const {
-        cout << name << "\n";
+        std::cout << real << " + " << imag << "i" << std::endl;
     }
-
-    void join(const MyString& a, const MyString& b);
 };
-void MyString::join(const MyString& a, const MyString& b) {
-    length = a.length + b.length;
-    delete[] name;
-    name = new char[length + 1];
-    strcpy(name, a.name);
-    strcat(name, b.name);
-}
 int main() {
-    MyString name1("deepa"), name2("prabha"), name3("poori"), s1, s2;
-    s1.join(name1, name2);
-    s2.join(s1, name3);
-    name1.display();
-    name2.display();
-    name3.display();
-    s1.display();
-    s2.display();
+    Complex c1(5.0, 3.0);
+    Complex c2(2.0, 1.0);
+    Complex result = c1 - c2;
+    std::cout << "Result of subtraction: ";
+    result.display();
     return 0;
 }
 

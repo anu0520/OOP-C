@@ -1,70 +1,29 @@
-#include<iostream>
+#include <iostream>
+#include <cmath>  
 using namespace std;
-class student
-{
-	protected:
-		int roll_number;
-		public:
-			void get_number(int a)
-			{
-				roll_number=a;
-			}
-			void put_number(void)
-			{
-				cout<<"roll _no:"<<roll_number<<"\n";
-			}
-};
-class test:public student
-{
-	protected:
-		float part1,part2;
-		public:
-			void get_marks(float x,float y)
-			{
-				part1=x;
-				part2=y;
-			}
-			void put_marks(void)
-			{
-				cout<<"marks obtained"<<"\n"
-				<<"part1="<<part1<<"\n"
-				<<"part2="<<part2<<"\n";
-			}
-};
-class sports 
-{ 
-protected: 
-float score; 
-public: 
-void get_score(float s) 
-{ 
-score = s;
+unsigned long long factorial(int n) {
+    if (n < 0) {
+        cout << "Factorial is not defined for negative integers." << endl;
+        return 0;
+    }
+    unsigned long long result = 1;
+    for (int i = 1; i <= n; ++i) {
+        result *= i;
+    }
+    return result;
 }
-void put_score(void) 
-{ 
-cout<<"Sports wt:"<<score<<"\n\n"; 
-} 
-}; 
-class result : public test, public sports 
-{ 
-float total; 
-public: 
-void display(void); 
-}; 
-void result ::display(void) 
-{ 
-total = part1 + part2 + score; 
-put_number(); 
-put_marks(); 
-put_score(); 
-cout<<"Total Score:"<<total<<"\n"; 
-} 
-int main() 
-{ 
-result student_1; 
-student_1.get_number (1234); 
-student_1.get_marks (27.5, 33.0); 
-student_1.get_score (6.0); 
-student_1.display (); 
-return 0; 
+double factorial(double n) {
+    if (n < 0.0) {
+        cout << "Factorial is not defined for negative numbers." << endl;
+        return 0.0;
+    }
+    return tgamma(n + 1);
 }
+int main() {
+    int intNum = 5;
+    cout << "Factorial of " << intNum << " (integer): " << factorial(intNum) << endl;
+    double floatNum = 5.5;
+    cout << "Factorial of " << floatNum << " (floating-point): " << factorial(floatNum) << endl;
+    return 0;
+}
+

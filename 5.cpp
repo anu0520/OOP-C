@@ -1,41 +1,44 @@
-#include <iostream>
-class Class2; 
-class Class1 {
-private:
-    int data1;
-public:
-    Class1(int d) : data1(d) {}
-    friend void swapData(Class1& obj1, Class2& obj2);
-    void display() const {
-        std::cout << "Class1 data: " << data1 << std::endl;
-    }
-};
-class Class2 {
-private:
-    int data2;
-
-public:
-    Class2(int d) : data2(d) {}
-    friend void swapData(Class1& obj1, Class2& obj2);
-    void display() const {
-        std::cout << "Class2 data: " << data2 << std::endl;
-    }
-};
-void swapData(Class1& obj1, Class2& obj2) {
-    int temp = obj1.data1;
-    obj1.data1 = obj2.data2;
-    obj2.data2 = temp;
+#include<iostream>
+#include <stdexcept>
+class array{
+	private:
+		int*data;
+		int size;
+		public:
+			array(int size):size(size){
+				data=new int[size];
+			}
+			~array(){
+				delete[]data;
+			}
+			int&operator[](int index){
+				if(index<0||index>=size){
+					throw std::out_of_range("index out of bounds");
+				}
+				return data[index];
+			}
+			const int&operator[](int index)const{
+			if(index<0||index>=size){
+				throw std::out_of_range("index out of bpunds");
+			}
+			return data[index];
+		}
+		int getsize()const{
+		return size;
+		}
+	};
+	int main(){
+		array arr(20);
+		for(int i=0;i<arr.getsize();++i){
+			arr[i]=i*20;
+		}
+		for(int i=0;i<arr.getsize();++i){
+			std::cout<<"arr["<<i<<"]="<<arr[i]<<std::endl;
+	}
+		try{
+			std::cout<<arr[20]<<std::endl;
+		}catch(const std::out_of_range&e){
+			std::cerr<<"exception:"<<e.what()<<std::endl;
+		}
+	return 0;
 }
-int main() {
-    Class1 obj1(10);
-    Class2 obj2(20);
-    std::cout << "Before swapping:" << std::endl;
-    obj1.display();
-    obj2.display();
-    swapData(obj1, obj2);
-    std::cout << "After swapping:" << std::endl;
-    obj1.display();
-    obj2.display();
-    return 0;
-}
-

@@ -1,41 +1,17 @@
-#include<iostream>
+#include <iostream>
+#include <cmath>  
 using namespace std;
-class base
-{
-	public:
-		void display()
-		{
-			cout<<"\n display base";
-		}
-		virtual void show()
-		{
-			cout<<"\n show base:";
-		}
-};
-class derived:public base
-{
-	public:
-		void display()
-		{
-			cout<<"\n display derived";
-		}
-		void show()
-		{
-			cout<<"\n show derived";
-		}
-};
-int main()
-{
-	base b;
-	derived d;
-	base*bptr;
-	cout<<"\n bptr points to base\n";
-	bptr=&b;
-	bptr->display();
-	bptr->show();
-	cout<<"\n\n bptr points to derived\n";
-	bptr=&d;
-	bptr->display();
-	bptr->show();
-	return 0;
+int absoluteValue(int n) {
+    return abs(n);
 }
+double absoluteValue(double n) {
+    return fabs(n);
+}
+int main() {
+        int intNum = -5;
+    cout << "Absolute value of " << intNum << " (integer): " << absoluteValue(intNum) << endl;
+    double doubleNum = -3.14;
+    cout << "Absolute value of " << doubleNum << " (floating-point): " << absoluteValue(doubleNum) << endl;
+    return 0;
+}
+

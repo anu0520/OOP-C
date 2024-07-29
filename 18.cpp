@@ -1,45 +1,19 @@
-#include<iostream>
+#include <iostream>
+#include <cmath>  
 using namespace std;
-class bc
-{
-	public:
-		int b;
-		void show()
-		{
-			cout<<"b="<<b<<"\n";
-		}
-};
-class dc:public bc
-{
-	public:
-		int d;
-		void show()
-		{
-			cout<<"b"<<"\n"
-			<<"d="<<d<<"\n";
-		}
-};
-int main()
-{
-	bc*bptr;
-	bc base;
-	bptr=&base;
-	bptr->b=100;
-	cout<<"bptr points to base object\n";
-	bptr->show();
-	dc derived;
-	bptr=&derived;
-	bptr->b=200;
-	cout<<"bptr now points to derived object\n";
-	bptr->show();
-	dc*dptr;
-	dptr=&derived;
-	dptr->d=300;
-	cout<<"dptr is derived type pointer\n";
-	dptr->show();
-	cout<<"using((dc*)bptr)\n";
-	((dc*)bptr)->d=400;
-	((dc*)bptr)->show();
-	return 0;
+int power(int base, int exponent) {
+    return static_cast<int>(pow(base, exponent));
+}
+double power(double base, double exponent) {
+    return pow(base, exponent);
+}
+int main() {
+    int intBase = 2;
+    int intExponent = 3;
+    cout << intBase << " raised to the power of " << intExponent << " is: " << power(intBase, intExponent) << endl;
+    double doubleBase = 2.5;
+    double doubleExponent = 3.5;
+    cout << doubleBase << " raised to the power of " << doubleExponent << " is: " << power(doubleBase, doubleExponent) << endl;
+    return 0;
 }
 
